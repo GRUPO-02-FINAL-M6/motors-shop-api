@@ -1,0 +1,593 @@
+_type: export
+__export_format: 4
+__export_date: 2023-07-25T18:49:41.230Z
+__export_source: insomnia.desktop.app:v2023.4.0
+resources:
+  - _id: req_baa96c8ebb8a4716b8e7cd192fcbb5dd
+    parentId: fld_5ec32011c8564a6381a7696d0b246724
+    modified: 1689965947358
+    created: 1689965741998
+    url: "{{ _.baseUrl }}/users"
+    name: Required Fields And Non Valid Data
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "user1",
+        	"firstName": [],
+        	"lastName": 1234
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1689965741998
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_5ec32011c8564a6381a7696d0b246724
+    parentId: fld_d812997fb7c449ffbde7e7a4a1ecbb3f
+    modified: 1689965740636
+    created: 1689965740636
+    name: Errors
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1689965740636
+    _type: request_group
+  - _id: fld_d812997fb7c449ffbde7e7a4a1ecbb3f
+    parentId: wrk_960e6d13446a46cd88634b5353ab1d7e
+    modified: 1689964058095
+    created: 1689963645099
+    name: Users
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1689963658757.625
+    _type: request_group
+  - _id: wrk_960e6d13446a46cd88634b5353ab1d7e
+    parentId: null
+    modified: 1689963638004
+    created: 1689963623372
+    name: "cosmos search "
+    description: ""
+    scope: design
+    _type: workspace
+  - _id: req_eeca316ccfcd4452a966ab561a0a042f
+    parentId: fld_5ec32011c8564a6381a7696d0b246724
+    modified: 1689965766963
+    created: 1689965766963
+    url: "{{ _.baseUrl }}/users"
+    name: Non Unique Email
+    description: ""
+    method: POST
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1689964831740
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a1290f8d92e64b3c86bf50617563c830
+    parentId: fld_d812997fb7c449ffbde7e7a4a1ecbb3f
+    modified: 1689963793845
+    created: 1689963673727
+    url: "{{ _.baseUrl }}/users"
+    name: Read
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1689963673728
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_af2eeac9a2f144efaf3c9c2f774d9db5
+    parentId: fld_d812997fb7c449ffbde7e7a4a1ecbb3f
+    modified: 1690226843952
+    created: 1690226304550
+    url: "{{ _.baseUrl }}/users/1"
+    name: Read By Id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_67258066f6a644bab7c22162cb64d53c',
+        'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+    metaSortKey: -1689614545192.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e3d5bff1bdf449b8b7bc7f349e312a03
+    parentId: fld_d812997fb7c449ffbde7e7a4a1ecbb3f
+    modified: 1690228040985
+    created: 1690227135569
+    url: "{{ _.baseUrl }}/users/profile"
+    name: Read By Token
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_67258066f6a644bab7c22162cb64d53c',
+        'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+    metaSortKey: -1689439980925.125
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_28042f2298ba44b799bdceb2776ee4d5
+    parentId: fld_d812997fb7c449ffbde7e7a4a1ecbb3f
+    modified: 1690226182702
+    created: 1689963805274
+    url: "{{ _.baseUrl }}/users"
+    name: Create
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "user2@mail.com",
+        	"username": "user2",
+        	"firstName": "user",
+        	"lastName": "1",
+        	"password": "1234"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1689265416657.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_67258066f6a644bab7c22162cb64d53c
+    parentId: fld_d812997fb7c449ffbde7e7a4a1ecbb3f
+    modified: 1690228078738
+    created: 1689963826723
+    url: "{{ _.baseUrl }}/users/login"
+    name: Login
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "user2@mail.com",
+        	"password": "1234"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1689090852389.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_7bd360bccc82401db1a16dfec519527d
+    parentId: fld_d812997fb7c449ffbde7e7a4a1ecbb3f
+    modified: 1690309491049
+    created: 1689963810178
+    url: "{{ _.baseUrl }}/users/1"
+    name: Update
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"adwiuhawiuhdawiuaw": "user1"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_67258066f6a644bab7c22162cb64d53c',
+        'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+    metaSortKey: -1688916288122.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_dc53e859f1654578a9cf5dec8d42050b
+    parentId: fld_d812997fb7c449ffbde7e7a4a1ecbb3f
+    modified: 1690229769819
+    created: 1690229752167
+    url: "{{ _.baseUrl }}/users/profile/update"
+    name: Update by Token
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"username": "user1PatchedProfile"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_67258066f6a644bab7c22162cb64d53c',
+        'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+    metaSortKey: -1688829005988.4375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f583d3aaadd942e093e79a4a8899283c
+    parentId: fld_d812997fb7c449ffbde7e7a4a1ecbb3f
+    modified: 1690230783683
+    created: 1689963817671
+    url: "{{ _.baseUrl }}/users/9"
+    name: Delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_67258066f6a644bab7c22162cb64d53c',
+        'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+    metaSortKey: -1688741723854.625
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9657b81acaf44ec5a4e33e2fb49ed2e2
+    parentId: fld_865512d3719145a892abdea9aeb4c3ba
+    modified: 1689964087005
+    created: 1689964026419
+    url: "{{ _.baseUrl }}/posts"
+    name: Read
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1689963921482
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_865512d3719145a892abdea9aeb4c3ba
+    parentId: wrk_960e6d13446a46cd88634b5353ab1d7e
+    modified: 1689964058893
+    created: 1689964026417
+    name: Posts
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1689963658504.6875
+    _type: request_group
+  - _id: req_f6ba1520b617431db20db43c02e8571c
+    parentId: fld_865512d3719145a892abdea9aeb4c3ba
+    modified: 1689964090431
+    created: 1689964026422
+    url: "{{ _.baseUrl }}/posts"
+    name: Create
+    description: ""
+    method: POST
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1689963797605
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f8002cfa1bc64137842ce7522e5cc300
+    parentId: fld_865512d3719145a892abdea9aeb4c3ba
+    modified: 1689964093573
+    created: 1689964026428
+    url: "{{ _.baseUrl }}/posts"
+    name: Update
+    description: ""
+    method: PATCH
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1689963766635.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_14f9d1bf6f2a4ca2ba0aaebaa04f99b7
+    parentId: fld_865512d3719145a892abdea9aeb4c3ba
+    modified: 1689964096806
+    created: 1689964026425
+    url: "{{ _.baseUrl }}/posts"
+    name: Delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1689963735666.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e3627ac5327a47d793bc75adb2d7ebf7
+    parentId: fld_b080c61e926a4ed0b10570a1a97148b9
+    modified: 1689963956084
+    created: 1689963921482
+    url: "{{ _.baseUrl }}/comments"
+    name: Read
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1689963921482
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_b080c61e926a4ed0b10570a1a97148b9
+    parentId: wrk_960e6d13446a46cd88634b5353ab1d7e
+    modified: 1689964056848
+    created: 1689963661287
+    name: Comments
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1689963658251.75
+    _type: request_group
+  - _id: req_19bc2a57e7a041a6b3c2b7df1f92ca4e
+    parentId: fld_b080c61e926a4ed0b10570a1a97148b9
+    modified: 1689963961443
+    created: 1689963937085
+    url: "{{ _.baseUrl }}/comments"
+    name: Create
+    description: ""
+    method: POST
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1689963797605
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ce02de8800e5429d81f3583b5cc373e4
+    parentId: fld_b080c61e926a4ed0b10570a1a97148b9
+    modified: 1689963985188
+    created: 1689963982932
+    url: "{{ _.baseUrl }}/comments"
+    name: Update
+    description: ""
+    method: PATCH
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1689963766635.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_76b98a57e6f947f38dd35cb894192032
+    parentId: fld_b080c61e926a4ed0b10570a1a97148b9
+    modified: 1689963967481
+    created: 1689963946179
+    url: "{{ _.baseUrl }}/comments"
+    name: Delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1689963735666.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_bc6ea6646eba4b798e9e89b920ef7207
+    parentId: fld_17fc0052817041c89a22120eccae1fbb
+    modified: 1689964101480
+    created: 1689964020165
+    url: "{{ _.baseUrl }}/likes"
+    name: Read
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1689963921482
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_17fc0052817041c89a22120eccae1fbb
+    parentId: wrk_960e6d13446a46cd88634b5353ab1d7e
+    modified: 1689964020162
+    created: 1689964020162
+    name: Likes
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1689963653193
+    _type: request_group
+  - _id: req_e82e70d472d24c519ea6b577671c9eb5
+    parentId: fld_17fc0052817041c89a22120eccae1fbb
+    modified: 1689964105393
+    created: 1689964020168
+    url: "{{ _.baseUrl }}/likes"
+    name: Create
+    description: ""
+    method: POST
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1689963797605
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_46ccf931dfa944c3b91a79641bb03ec1
+    parentId: fld_17fc0052817041c89a22120eccae1fbb
+    modified: 1689964110268
+    created: 1689964020171
+    url: "{{ _.baseUrl }}/likes"
+    name: Delete
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1689963735666.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_7ba5ae89a995669a6c05ce9a7714d239ad033adb
+    parentId: wrk_960e6d13446a46cd88634b5353ab1d7e
+    modified: 1690297833077
+    created: 1689963623376
+    name: Base Environment
+    data:
+      baseUrl: http://localhost:3000
+      userToken: "{% response 'body', 'req_67258066f6a644bab7c22162cb64d53c',
+        'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+    dataPropertyOrder:
+      "&":
+        - baseUrl
+        - userToken
+    color: null
+    isPrivate: false
+    metaSortKey: 1689963623376
+    _type: environment
+  - _id: jar_7ba5ae89a995669a6c05ce9a7714d239ad033adb
+    parentId: wrk_960e6d13446a46cd88634b5353ab1d7e
+    modified: 1689963623377
+    created: 1689963623377
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_4cdeac9882a9449ab75eefc328421339
+    parentId: wrk_960e6d13446a46cd88634b5353ab1d7e
+    modified: 1689963638002
+    created: 1689963623374
+    fileName: "cosmos search "
+    contents: ""
+    contentType: yaml
+    _type: api_spec
