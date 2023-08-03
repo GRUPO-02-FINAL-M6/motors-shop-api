@@ -5,14 +5,14 @@ const userLogin = (req: Request, res: Response): Response => {
 };
 
 const userCreate = async (req: Request, res: Response): Promise<Response> => {
-  return res.status(200).json({ message: "USUARIO CRIADO" });
+  return res.status(201).json({ message: "USUARIO CRIADO" });
 };
 
 const userReadAll = async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json({ message: "USUARIOS LISTADOS" });
 };
 const userReadById = async (req: Request, res: Response): Promise<Response> => {
-  return res.status(200).json({ message: "USUARIOS LISTADOS" });
+  return res.status(200).json({ message: "USUARIO LISTADO PELO ID" });
 };
 
 const userReadProfile = async (
@@ -30,7 +30,7 @@ const userUpdateProfile = async (
 };
 
 const userDelete = async (req: Request, res: Response): Promise<Response> => {
-  return res.status(200).json({ message: "USUARIO DELETADO" });
+  return res.status(204).json({ message: "USUARIO DELETADO" });
 };
 
 const users = {
