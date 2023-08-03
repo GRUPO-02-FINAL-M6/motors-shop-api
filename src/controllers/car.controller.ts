@@ -1,55 +1,31 @@
 import { Request, Response } from "express";
 
-const userLogin = (req: Request, res: Response): Response => {
+const carCreate = async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json();
 };
 
-const userCreate = async (req: Request, res: Response): Promise<Response> => {
+const carReadAll = async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json();
 };
 
-const userReadAll = async (req: Request, res: Response): Promise<Response> => {
+const carRead = async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json();
 };
 
-const userReadProfile = async (
-  req: Request,
-  res: Response
-): Promise<Response> => {
+const carUpdate = async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json();
 };
 
-const userReadById = async (req: Request, res: Response): Promise<Response> => {
+const carDelete = async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json();
 };
 
-const userUpdateById = async (
-  req: Request,
-  res: Response
-): Promise<Response> => {
-  return res.status(200).json();
+const cars = {
+  carCreate,
+  carRead,
+  carReadAll,
+  carUpdate,
+  carDelete,
 };
 
-const userUpdateProfile = async (
-  req: Request,
-  res: Response
-): Promise<Response> => {
-  return res.status(200).json();
-};
-
-const userDelete = async (req: Request, res: Response): Promise<Response> => {
-  return res.status(200).json();
-};
-
-const users = {
-  userLogin,
-  userCreate,
-  userReadAll,
-  userReadById,
-  userReadProfile,
-  userUpdateProfile,
-  userUpdateById,
-  userDelete,
-};
-
-export default users;
+export default cars;
