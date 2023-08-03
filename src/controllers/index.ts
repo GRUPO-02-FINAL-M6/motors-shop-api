@@ -1,13 +1,9 @@
+import cars from "./car.controller";
 import users from "./users.controller";
-import posts from "./posts.controller";
-import likes from "./likes.controller";
-import comments from "./comments.controller";
 
 const controllers = {
-    ...users,
-    ...posts,
-    ...likes,
-    ...comments
-}
+  users,
+  cars,
+};
 
-export default controllers
+export default controllers;
