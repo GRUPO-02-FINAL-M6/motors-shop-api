@@ -2,7 +2,10 @@ import { Request, Response } from "express";
 import userServices from "../services/user";
 
 const userLogin = (req: Request, res: Response): Response => {
-  return res.status(200).json({ message: "USUARIO LOGADO" });
+  const userId = res.locals.userId;
+  const token = userServices.login(userId);
+
+  return res.status(200).json(token);
 };
 
 const userCreate = async (req: Request, res: Response): Promise<Response> => {

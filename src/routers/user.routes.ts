@@ -1,10 +1,12 @@
 import { Router } from "express";
 import controllers from "../controllers";
+import verifyCredentials from "../middlewares/verifyCredentials.middlewares";
 
 const user = Router();
 
-user.post("/login", controllers.users.userLogin);
 user.post("", controllers.users.userCreate);
+
+user.post("/login", verifyCredentials, controllers.users.userLogin);
 
 user.get("/all", controllers.users.userReadAll);
 user.get("/profile", controllers.users.userReadProfile);
