@@ -26,10 +26,10 @@ export class User {
   @Column({ type: "varchar", length: 120 })
   password: string;
 
-  @CreateDateColumn({ type: "varchar", length: 120 })
+  @CreateDateColumn({ type: "date" })
   createdAt: Date;
 
-  @DeleteDateColumn({ type: "varchar", length: 120 })
+  @DeleteDateColumn({ type: "date" })
   deletedAt: Date;
 
   @BeforeInsert()

@@ -1,11 +1,16 @@
 import { Request, Response } from "express";
+import userServices from "../services/user";
 
 const userLogin = (req: Request, res: Response): Response => {
   return res.status(200).json({ message: "USUARIO LOGADO" });
 };
 
 const userCreate = async (req: Request, res: Response): Promise<Response> => {
-  return res.status(201).json({ message: "USUARIO CRIADO" });
+  const userData = req.body;
+
+  const newUser = await userServices.createUser(userData);
+
+  return res.status(201).json(newUser);
 };
 
 const userReadAll = async (req: Request, res: Response): Promise<Response> => {

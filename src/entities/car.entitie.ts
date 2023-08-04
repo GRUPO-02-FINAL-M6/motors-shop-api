@@ -26,9 +26,9 @@ export class Car {
   @Column({ type: "varchar" })
   km: number;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: "date" })
   createdAt: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ type: "date" })
   deletedAt: Date;
 }

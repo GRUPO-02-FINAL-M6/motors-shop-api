@@ -1,4 +1,4 @@
-import { date, string, z } from "zod";
+import { z } from "zod";
 
 const user = z.object({
   id: z.number(),
@@ -6,8 +6,8 @@ const user = z.object({
   email: z.string(),
   contact: z.string(),
   password: z.string(),
-  createdAt: z.date(),
-  deletedAt: z.date(),
+  createdAt: z.string(),
+  deletedAt: z.string().nullable(),
 });
 
 const userRequest = user.omit({
