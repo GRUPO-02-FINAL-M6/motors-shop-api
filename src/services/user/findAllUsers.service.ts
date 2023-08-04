@@ -1,10 +1,10 @@
 import { User } from "../../entities/user.entitie";
-import { TUserRequest } from "../../interfaces/user.interfaces";
+import userSchema from "../../schemas/userSchema";
 import repositories from "../../utils/respositorys";
 
-const findAllUsers = async (userData: TUserRequest) => {
+const findAllUsers = async () => {
   const users: User[] | null = await repositories.user.find();
-  return users;
+  return userSchema.userAllResponse.parse(users);
 };
 
 export default findAllUsers;

@@ -14,7 +14,9 @@ const userCreate = async (req: Request, res: Response): Promise<Response> => {
 };
 
 const userReadAll = async (req: Request, res: Response): Promise<Response> => {
-  return res.status(200).json({ message: "USUARIOS LISTADOS" });
+  const usersData = await userServices.findAllUsers();
+
+  return res.status(200).json(usersData);
 };
 const userReadById = async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json({ message: "USUARIO LISTADO PELO ID" });
