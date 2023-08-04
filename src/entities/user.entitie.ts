@@ -10,7 +10,7 @@ import {
 } from "typeorm";
 
 @Entity("users")
-class User {
+export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -27,10 +27,10 @@ class User {
   password: string;
 
   @CreateDateColumn({ type: "varchar", length: 120 })
-  createdAt: string;
+  createdAt: Date;
 
   @DeleteDateColumn({ type: "varchar", length: 120 })
-  deletedAt: string;
+  deletedAt: Date;
 
   @BeforeInsert()
   @BeforeUpdate()
