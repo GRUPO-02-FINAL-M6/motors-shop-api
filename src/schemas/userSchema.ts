@@ -24,12 +24,18 @@ const userAllResponse = userResponse.array();
 
 const userUpdate = userRequest.partial();
 
+const login = z.object({
+  email: z.string(),
+  password: z.string(),
+});
+
 const userSchema = {
   user,
   userRequest,
   userResponse,
   userAllResponse,
   userUpdate,
+  login,
 };
 
 export default userSchema;
