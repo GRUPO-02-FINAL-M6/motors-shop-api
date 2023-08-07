@@ -6,8 +6,10 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Advertisement } from "./Advertisement.entitie";
 
 @Entity("users")
 export class User {
@@ -31,6 +33,9 @@ export class User {
 
   @DeleteDateColumn({ type: "date" })
   deletedAt: Date;
+
+  @OneToMany(() => Advertisement, advertisement => advertisement.user)
+    ads: Advertisement[]
 
   @BeforeInsert()
   @BeforeUpdate()

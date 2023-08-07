@@ -6,8 +6,8 @@ const user = z.object({
   email: z.string(),
   contact: z.string(),
   password: z.string(),
-  createdAt: z.string(),
-  deletedAt: z.string().nullable(),
+  createdAt: z.string().or(z.date()),
+  deletedAt: z.string().nullable().or(z.date()),
 });
 
 const userRequest = user.omit({
