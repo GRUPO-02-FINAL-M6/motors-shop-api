@@ -9,7 +9,7 @@ const app = express();
 app.use(json());
 
 app.use("/users", routes.user);
-app.use("/car", routes.car);
+app.use("/advertisement", routes.advertisement);
 
 app.use(handleError);
 
