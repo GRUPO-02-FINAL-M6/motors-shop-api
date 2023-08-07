@@ -1,7 +1,7 @@
-import { Car } from "./car.entitie";
+import { Advertisement } from "./Advertisement.entitie";
 import { User } from "./user.entitie";
 
 export const entites = {
   User,
-  Car,
+  Advertisement,
 };

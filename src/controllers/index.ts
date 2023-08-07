@@ -1,9 +1,9 @@
-import cars from "./car.controller";
+import ads from "./advertisement.controller";
 import users from "./users.controller";
 
 const controllers = {
   users,
-  cars,
+  ads,
 };
 
 export default controllers;
