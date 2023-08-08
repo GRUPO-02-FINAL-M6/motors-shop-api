@@ -21,5 +21,5 @@ export const advertisementCreateService = async (advertisement: TAdvertisementRe
     const newAdvertisement = advertisementRepo.create({ ...advertisement, user });
     await advertisementRepo.save(newAdvertisement);
 
-    return advertisementSchema.advertisement.parse(newAdvertisement);
+    return advertisementSchema.advertisement.parse({ ...newAdvertisement });
 }

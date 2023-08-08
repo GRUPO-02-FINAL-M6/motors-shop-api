@@ -1,32 +1,34 @@
 import { Request, Response } from "express";
-import { advertisementCreateService } from "../services/advertisement.services/advertisementCreate.service";
+
 import advertisementSchema from "../schemas/advertisementSchema";
-import { advertisementGetAllService } from "../services/advertisement.services/advertisementGetAll.service";
-import { advertisementGetService } from "../services/advertisement.services/advertisementGet.service";
+import { advertisementServices } from "../services/advertisement.services";
+
 
 const advertisementCreate = async (req: Request, res: Response): Promise<Response> => {
   const reqIsValid = advertisementSchema.advertisementRequest.parse(req.body);
 
-  const advertisement = await advertisementCreateService(reqIsValid, res.locals.userId);
+  const advertisement = await advertisementServices.advertisementCreateService(reqIsValid, res.locals.userId);
   return res.status(200).json(advertisement);
 };
 
 const advertisementReadAll = async (req: Request, res: Response): Promise<Response> => {
-  const ads = await advertisementGetAllService()
+  const ads = await advertisementServices.advertisementGetAllService()
   return res.status(200).json(ads);
 };
 
 const advertisementRead = async (req: Request, res: Response): Promise<Response> => {
-  const advertisement = await advertisementGetService(req.params.adsId);
+  const advertisement = await advertisementServices.advertisementGetService(Number(req.params.adsId));
   return res.status(200).json(advertisement);
 };
 
 const advertisementUpdate = async (req: Request, res: Response): Promise<Response> => {
-  return res.status(200).json({ message: "Anúncio ATUALIZADO" });
+  const advertisement = await advertisementServices.advertisementUpdateService(req.body, Number(req.params.id),Number(res.locals.userId));
+  return res.status(200).json(advertisement);
 };
 
 const advertisementDelete = async (req: Request, res: Response): Promise<Response> => {
-  return res.status(200).json({ message: "Anúncio DELETADO" });
+  await advertisementServices.advertisementDeleteService(Number(req.params.id))
+  return res.status(200).send();
 };
 
 const advertisement = {
