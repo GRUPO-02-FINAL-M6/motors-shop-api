@@ -6,18 +6,15 @@ import { AppError } from "../../errors";
 import { Advertisement } from "../../entities/Advertisement.entitie";
 import advertisementSchema from "../../schemas/advertisementSchema";
 
-export const advertisementUpdateService = async (advertisementData: TAdvertisementUpdate, userId: number, advertisementId: number): Promise<TAdvertisement> => {
-
-
+export const advertisementUpdateService = async (advertisementData: TAdvertisementUpdate, advertisementId: number, userId: number): Promise<TAdvertisement> => {
     const usersRepo: Repository<User> = repositories.user;
-
     const user = await usersRepo.findOneBy({ id: userId })
     if (!user) {
         throw new AppError("user not found", 404);
     }
 
     const advertisementRepo: Repository<Advertisement> = repositories.advertisement;
-    const oldAdvertisement = await advertisementRepo.findOne({ where: { id: advertisementId } });
+    const oldAdvertisement = await advertisementRepo.findOneBy({ id: advertisementId });
     const newData = advertisementRepo.create({
         ...oldAdvertisement,
         ...advertisementData
@@ -25,5 +22,8 @@ export const advertisementUpdateService = async (advertisementData: TAdvertiseme
 
     await advertisementRepo.save(newData);
 
-    return advertisementSchema.advertisement.parse(newData);
+    newData.km = Number(newData.km);
+    newData.value = Number(newData.value);
+
+    return advertisementSchema.advertisement.parse({ ...newData, user: { ...user } });
 }
