@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
+import { AppError } from "../errors";
 
 const verifyToken = (
   req: Request,
@@ -14,8 +15,7 @@ const verifyToken = (
   const [_bearer, token] = authorization.split(" ");
 
   verify(token, String(process.env.SECRET_KEY), (err: any, decode: any) => {
-    if (err) return res.status(401).json({ message: err.message });
-
+    if (err) throw new AppError("invalid token", 401);
     const userId: string = decode.sub;
     res.locals.userId = userId;
   });
