@@ -20,10 +20,8 @@ const advertisementReadAll = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const teste = req.query.params;
-  console.log(teste);
-
-  const ads = await advertisementServices.advertisementGetAllService();
+  const filterObj = req.query;
+  const ads = await advertisementServices.advertisementGetAllService(filterObj);
   return res.status(200).json(ads);
 };
 

@@ -4,13 +4,30 @@ import { TAdvertisementResponseArray } from "../../interfaces/advertisement.inte
 import repositories from "../../utils/respositorys";
 import advertisementSchema from "../../schemas/advertisementSchema";
 
+export const advertisementGetAllService = async (
+  filterObj: any
+): Promise<TAdvertisementResponseArray> => {
+  const advertisementRepo: Repository<Advertisement> =
+    repositories.advertisement;
 
+  let ads = [];
 
-
-export const advertisementGetAllService = async (): Promise<TAdvertisementResponseArray> => {
-
-    const advertisementRepo: Repository<Advertisement> = repositories.advertisement;
-    const ads = await advertisementRepo.createQueryBuilder('ads').innerJoin('ads.user', 'user').addSelect('user.name').getMany();
+  if (filterObj) {
+    ads = await advertisementRepo
+      .createQueryBuilder("ads")
+      .innerJoin("ads.user", "user")
+      .addSelect("user.name")
+      .where(filterObj)
+      .getMany();
 
     return ads;
-}
+  }
+
+  ads = await advertisementRepo
+    .createQueryBuilder("ads")
+    .innerJoin("ads.user", "user")
+    .addSelect("user.name")
+    .getMany();
+
+  return ads;
+};
