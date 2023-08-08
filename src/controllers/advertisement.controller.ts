@@ -3,6 +3,7 @@ import { advertisementCreateService } from "../services/advertisement.services/a
 import advertisementSchema from "../schemas/advertisementSchema";
 import { advertisementGetAllService } from "../services/advertisement.services/advertisementGetAll.service";
 import { advertisementGetService } from "../services/advertisement.services/advertisementGet.service";
+import { advertisementDeleteService } from "../services/advertisement.services/advertisementDelete.service";
 
 const advertisementCreate = async (req: Request, res: Response): Promise<Response> => {
   const reqIsValid = advertisementSchema.advertisementRequest.parse(req.body);
@@ -26,6 +27,7 @@ const advertisementUpdate = async (req: Request, res: Response): Promise<Respons
 };
 
 const advertisementDelete = async (req: Request, res: Response): Promise<Response> => {
+  await advertisementDeleteService(Number(req.params.id))
   return res.status(200).json({ message: "Anúncio DELETADO" });
 };
 
