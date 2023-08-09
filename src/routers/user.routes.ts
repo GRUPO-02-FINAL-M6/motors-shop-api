@@ -2,10 +2,11 @@ import { Router } from "express";
 import controllers from "../controllers";
 import verifyCredentials from "../middlewares/verifyCredentials.middlewares";
 import verifyToken from "../middlewares/verifyToken.middlewars";
+import userMiddlewares from "../middlewares/users";
 
 const user = Router();
 
-user.post("", controllers.users.userCreate);
+user.post("", userMiddlewares.verifyEmailExist, controllers.users.userCreate);
 user.post("/login", verifyCredentials, controllers.users.userLogin);
 
 user.use(verifyToken);
