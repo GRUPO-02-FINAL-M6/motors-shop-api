@@ -19,6 +19,15 @@ export const advertisementGetAllService = async (
   if (filterObj.name) {
     query.andWhere("LOWER(ads.name) LIKE :name", { name: `%${filterObj.name.toLowerCase()}%` });
   }
+  if (filterObj.color) {
+    query.andWhere("LOWER(ads.color) LIKE :color", { color: `%${filterObj.color.toLowerCase()}%` });
+  }
+  if (filterObj.kmMin !== undefined) {
+    query.andWhere("ads.km >= :kmMin", { kmMin: filterObj.kmMin });
+  }
+  if (filterObj.kmMax !== undefined) {
+    query.andWhere("ads.km <= :kmMax", { kmMax: filterObj.kmMax });
+  }
 
   if (filterObj.valueMin !== undefined) {
     query.andWhere("ads.value >= :valueMin", { valueMin: filterObj.valueMin });

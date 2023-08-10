@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -33,14 +34,23 @@ export class Advertisement {
   @Column({ type: "integer" })
   year: number;
 
-  @Column({ type: "varchar" })
+  @Column({ type: "integer" })
   km: number;
 
   @Column({ type: "varchar" })
   fuel: Fuel;
 
+  @Column({ type: "float" })
+  price: number;
+
   @Column({ type: "varchar" })
-  value: number;
+  color: string;
+
+  @Column({ type: "varchar" })
+  modelCar: string;
+
+  @Column({ type: "float" })
+  priceFip: number;
 
   @Column({type: "varchar", array:true})
   images: string[]

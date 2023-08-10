@@ -10,11 +10,14 @@ const advertisement = z.object({
   description: z.string(),
   year: z.number().max(maxYear),
   km: z.number(),
+  color: z.string(),
   images: z.array(z.string()),
   fuel: z.enum([Fuel.electric, Fuel.flex, Fuel.hybrid]),
   createdAt: z.date().or(z.string()),
   user: userSchema.userResponse,
-  value: z.number()
+  price: z.number(),
+  priceFip: z.number(),
+  modelCar: z.string()
 });
 
 const advertisementRequest = advertisement.omit({
