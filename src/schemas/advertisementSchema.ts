@@ -32,6 +32,7 @@ const advertisementUpdate = advertisementRequest.partial();
 
 const advertisementResponsePagination = z.object({
   page: z.number(),
+  maxPages: z.number(),
   previousPage: z.string().or(z.null()).or(z.undefined()),
   nextPage: z.string().or(z.null()).or(z.undefined()),
   ads: advertisementResponseArray,
