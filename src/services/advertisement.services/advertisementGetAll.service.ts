@@ -12,16 +12,14 @@ export const advertisementGetAllService = async (
 
   const advertisementAll = await advertisementRepo.find();
   const maxItens = advertisementAll.length;
+  const perPage = 12;
+  const pageMax = maxItens / perPage;
 
   if (!page) {
     page = 1;
   }
 
-  const perPage = 12;
-
-  if (maxItens / perPage < page) {
-    const pageMax = maxItens / perPage;
-
+  if (pageMax < page) {
     page = Math.ceil(pageMax);
   }
 
@@ -75,14 +73,16 @@ export const advertisementGetAllService = async (
     previousPage = null;
   }
 
-  if (maxItens / perPage < page) {
+  if (pageMax < page) {
     nextPage = null;
   }
 
   const response: TAdvertisementResponsePagination = {
     page: page,
+    maxPages: Math.ceil(pageMax),
     previousPage: previousPage,
     nextPage: nextPage,
+
     ads: [...ads],
   };
 
