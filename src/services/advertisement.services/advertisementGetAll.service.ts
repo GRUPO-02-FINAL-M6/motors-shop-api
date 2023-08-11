@@ -2,25 +2,40 @@ import { Repository } from "typeorm";
 import { Advertisement } from "../../entities/Advertisement.entitie";
 import { TAdvertisementResponseArray } from "../../interfaces/advertisement.interfaces";
 import repositories from "../../utils/respositorys";
+import { number } from "zod";
 
 export const advertisementGetAllService = async (
-  filterObj: any
-): Promise<TAdvertisementResponseArray> => {
+  filterObj: any,
+  page?: number
+): Promise<any> => {
   const advertisementRepo: Repository<Advertisement> =
     repositories.advertisement;
+
+  const advertisementAll = await advertisementRepo.find();
+  const maxItens = advertisementAll.length;
+
+  if (!page) {
+    page = 1;
+  }
+
+  const perPage = 12;
 
   const query = advertisementRepo
     .createQueryBuilder("ads")
     .innerJoin("ads.user", "user")
     .addSelect("user.name")
-
-
+    .take(perPage)
+    .skip((page - 1) * perPage);
 
   if (filterObj.name) {
-    query.andWhere("LOWER(ads.name) LIKE :name", { name: `%${filterObj.name.toLowerCase()}%` });
+    query.andWhere("LOWER(ads.name) LIKE :name", {
+      name: `%${filterObj.name.toLowerCase()}%`,
+    });
   }
   if (filterObj.color) {
-    query.andWhere("LOWER(ads.color) LIKE :color", { color: `%${filterObj.color.toLowerCase()}%` });
+    query.andWhere("LOWER(ads.color) LIKE :color", {
+      color: `%${filterObj.color.toLowerCase()}%`,
+    });
   }
   if (filterObj.kmMin !== undefined) {
     query.andWhere("ads.km >= :kmMin", { kmMin: filterObj.kmMin });
@@ -37,11 +52,30 @@ export const advertisementGetAllService = async (
   }
 
   if (filterObj.brand) {
-    query.andWhere("LOWER(ads.brand) LIKE :brand", { brand: `%${filterObj.brand.toLowerCase()}%` });
+    query.andWhere("LOWER(ads.brand) LIKE :brand", {
+      brand: `%${filterObj.brand.toLowerCase()}%`,
+    });
   }
 
   const ads = await query.getMany();
 
-  return ads;
+  let nextPage = `/advertisement?page=${page + 1}`;
+  let previuwsPage = `/advertisement?page=${page - 1}`;
 
+  if (page * maxItens < page) {
+    nextPage = "";
+  }
+
+  if (page == 1) {
+    previuwsPage = "";
+  }
+
+  const response = {
+    page: page,
+    previuwsPage: previuwsPage,
+    nextPage: nextPage,
+    ads,
+  };
+
+  return response;
 };
