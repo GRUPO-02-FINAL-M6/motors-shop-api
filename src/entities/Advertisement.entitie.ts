@@ -11,11 +11,10 @@ import {
 import { User } from "./user.entitie";
 
 export enum Fuel {
-  flex = "Gasolina / Etanol", 
+  flex = "Gasolina / Etanol",
   hybrid = "Gasolina / Elétrico",
-  electric = "Elétrico"
+  electric = "Elétrico",
 }
-
 
 @Entity("ads")
 export class Advertisement {
@@ -52,10 +51,10 @@ export class Advertisement {
   @Column({ type: "float" })
   priceFip: number;
 
-  @Column({type: "varchar", array:true})
-  images: string[]
+  @Column({ type: "varchar", array: true })
+  images: string[];
 
-  @ManyToOne(() => User, user => user.ads)
+  @ManyToOne(() => User, (user) => user.ads)
   user: User;
 
   @CreateDateColumn({ type: "date" })
