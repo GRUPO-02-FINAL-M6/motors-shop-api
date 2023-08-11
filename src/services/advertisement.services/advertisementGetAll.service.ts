@@ -1,12 +1,7 @@
 import { Repository } from "typeorm";
 import { Advertisement } from "../../entities/Advertisement.entitie";
-import {
-  TAdvertisementResponseArray,
-  TAdvertisementResponsePagination,
-} from "../../interfaces/advertisement.interfaces";
+import { TAdvertisementResponsePagination } from "../../interfaces/advertisement.interfaces";
 import repositories from "../../utils/respositorys";
-import { number } from "zod";
-import advertisementSchema from "../../schemas/advertisementSchema";
 
 export const advertisementGetAllService = async (
   filterObj: any,
@@ -23,6 +18,12 @@ export const advertisementGetAllService = async (
   }
 
   const perPage = 12;
+
+  if (maxItens / perPage < page) {
+    const pageMax = maxItens / perPage;
+
+    page = Math.ceil(pageMax);
+  }
 
   const query = advertisementRepo
     .createQueryBuilder("ads")
@@ -63,20 +64,24 @@ export const advertisementGetAllService = async (
 
   const ads = await query.getMany();
 
-  let nextPage = `/advertisement?page=${page + 1}`;
-  let previuwsPage = `/advertisement?page=${page - 1}`;
+  let nextPage: string | null = `/advertisement?page=${page + 1}`;
+  let previousPage: string | null = `/advertisement?page=${page - 1}`;
 
   if (page * maxItens < page) {
-    nextPage = "";
+    nextPage = null;
   }
 
   if (page == 1) {
-    previuwsPage = "";
+    previousPage = null;
+  }
+
+  if (maxItens / perPage < page) {
+    nextPage = null;
   }
 
   const response: TAdvertisementResponsePagination = {
     page: page,
-    previuwsPage: previuwsPage,
+    previousPage: previousPage,
     nextPage: nextPage,
     ads: [...ads],
   };
