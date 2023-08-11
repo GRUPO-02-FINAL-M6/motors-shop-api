@@ -1,13 +1,17 @@
 import { Repository } from "typeorm";
 import { Advertisement } from "../../entities/Advertisement.entitie";
-import { TAdvertisementResponseArray } from "../../interfaces/advertisement.interfaces";
+import {
+  TAdvertisementResponseArray,
+  TAdvertisementResponsePagination,
+} from "../../interfaces/advertisement.interfaces";
 import repositories from "../../utils/respositorys";
 import { number } from "zod";
+import advertisementSchema from "../../schemas/advertisementSchema";
 
 export const advertisementGetAllService = async (
   filterObj: any,
   page?: number
-): Promise<any> => {
+): Promise<TAdvertisementResponsePagination> => {
   const advertisementRepo: Repository<Advertisement> =
     repositories.advertisement;
 
@@ -70,11 +74,11 @@ export const advertisementGetAllService = async (
     previuwsPage = "";
   }
 
-  const response = {
+  const response: TAdvertisementResponsePagination = {
     page: page,
     previuwsPage: previuwsPage,
     nextPage: nextPage,
-    ads,
+    ads: [...ads],
   };
 
   return response;

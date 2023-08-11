@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { number, z } from "zod";
 import userSchema from "./userSchema";
 import { Fuel } from "../entities/Advertisement.entitie";
 
@@ -17,7 +17,7 @@ const advertisement = z.object({
   user: userSchema.userResponse,
   price: z.number(),
   priceFip: z.number(),
-  modelCar: z.string()
+  modelCar: z.string(),
 });
 
 const advertisementRequest = advertisement.omit({
@@ -30,11 +30,19 @@ const advertisementResponseArray = advertisement.array();
 
 const advertisementUpdate = advertisementRequest.partial();
 
+const advertisementResponsePagination = z.object({
+  page: z.number(),
+  previuwsPage: z.string(),
+  nextPage: z.string(),
+  ads: advertisementResponseArray,
+});
+
 const advertisementSchema = {
   advertisement,
   advertisementRequest,
   advertisementResponseArray,
   advertisementUpdate,
+  advertisementResponsePagination,
 };
 
 export default advertisementSchema;
