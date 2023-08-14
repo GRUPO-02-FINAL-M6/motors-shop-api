@@ -2,7 +2,7 @@ import { NextFunction, Response, Request } from "express";
 import repositories from "../../utils/respositorys";
 import { AppError } from "../../errors";
 
-export const verifyEmailExist = async (
+const verifyEmailExist = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -17,7 +17,7 @@ export const verifyEmailExist = async (
   next();
 };
 
-export const verifyUserExist = async (
+const verifyUserExist = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -35,3 +35,10 @@ export const verifyUserExist = async (
   }
   next();
 };
+
+const userMiddlewares = {
+  verifyEmailExist,
+  verifyUserExist,
+};
+
+export default userMiddlewares;
