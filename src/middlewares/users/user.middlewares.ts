@@ -16,3 +16,22 @@ export const verifyEmailExist = async (
   }
   next();
 };
+
+export const verifyUserExist = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  let id = Number(req.params.id);
+
+  if (!id) {
+    id = res.locals.userId;
+  }
+
+  const user = await repositories.user.findOneBy({ id: id });
+
+  if (!user) {
+    throw new AppError("user not faund", 400);
+  }
+  next();
+};
