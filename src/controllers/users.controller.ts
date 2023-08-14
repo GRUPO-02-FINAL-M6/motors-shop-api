@@ -50,7 +50,10 @@ const userUpdateProfile = async (
 };
 
 const userDelete = async (req: Request, res: Response): Promise<Response> => {
-  return res.status(204).json({ message: "USUARIO DELETADO" });
+  const userId = res.locals.userId;
+  await userServices.deleteUser(userId);
+
+  return res.status(204).send();
 };
 
 const users = {
