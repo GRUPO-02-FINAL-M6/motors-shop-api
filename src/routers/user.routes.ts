@@ -2,9 +2,9 @@ import { Router } from "express";
 import controllers from "../controllers";
 import verifyCredentials from "../middlewares/verifyCredentials.middlewares";
 import verifyToken from "../middlewares/verifyToken.middlewars";
-import userMiddlewares from "../middlewares/users";
 import validateSchema from "../middlewares/validateSchema.middlewares";
 import userSchema from "../schemas/userSchema";
+import userMiddlewares from "../middlewares/users/user.middlewares";
 
 const user = Router();
 
