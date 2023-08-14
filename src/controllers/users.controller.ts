@@ -46,7 +46,11 @@ const userUpdateProfile = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  return res.status(200).json({ message: "PERFIL ATUALIZADO" });
+  const userId = res.locals.userId;
+  const body = req.body;
+  const newBody = await userServices.patchProfile(userId, body);
+
+  return res.status(200).json(newBody);
 };
 
 const userDelete = async (req: Request, res: Response): Promise<Response> => {

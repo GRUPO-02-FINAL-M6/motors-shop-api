@@ -1,4 +1,3 @@
-import user from "../../routers/user.routes";
 import repositories from "../../utils/respositorys";
 
 const deleteUser = async (userId: number) => {
