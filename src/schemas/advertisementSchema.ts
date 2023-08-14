@@ -35,7 +35,7 @@ const advertisementResponsePagination = z.object({
   maxPages: z.number(),
   previousPage: z.string().or(z.null()).or(z.undefined()),
   nextPage: z.string().or(z.null()).or(z.undefined()),
-  ads: advertisementResponseArray,
+  ads: advertisementResponseArray || [z.null],
 });
 
 const advertisementSchema = {
