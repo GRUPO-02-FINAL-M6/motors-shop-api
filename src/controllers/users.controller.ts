@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import userServices from "../services/user";
+import findUser from "../services/user/findUserProfile.service";
+import { number } from "zod";
 
 const userLogin = (req: Request, res: Response): Response => {
   const userId = res.locals.userId;
@@ -22,14 +24,22 @@ const userReadAll = async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json(usersData);
 };
 const userReadById = async (req: Request, res: Response): Promise<Response> => {
-  return res.status(200).json({ message: "USUARIO LISTADO PELO ID" });
+  const userId = Number(req.params.id);
+
+  const userData = await findUser(userId);
+
+  return res.json(userData);
 };
 
 const userReadProfile = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  return res.status(200).json({ message: "PERFIL DO USUARIO" });
+  const userId = res.locals.userId;
+
+  const userData = await findUser(userId);
+
+  return res.json(userData);
 };
 
 const userUpdateProfile = async (

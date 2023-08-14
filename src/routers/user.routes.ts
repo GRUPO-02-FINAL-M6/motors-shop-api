@@ -20,7 +20,11 @@ user.use(verifyToken);
 
 user.get("/all", controllers.users.userReadAll);
 user.get("/profile", controllers.users.userReadProfile);
-user.get("/:id", controllers.users.userReadById);
+user.get(
+  "/:id",
+  userMiddlewares.verifyUserExist,
+  controllers.users.userReadById
+);
 
 user.patch("", controllers.users.userUpdateProfile);
 user.delete("", controllers.users.userDelete);
