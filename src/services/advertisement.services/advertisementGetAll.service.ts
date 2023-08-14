@@ -23,12 +23,19 @@ export const advertisementGetAllService = async (
     page = Math.ceil(pageMax);
   }
 
+  let perPageVerification = (page - 1) * perPage;
+
+  if (perPageVerification < 0) {
+    page = 1;
+    perPageVerification = perPage;
+  }
+
   const query = advertisementRepo
     .createQueryBuilder("ads")
     .innerJoin("ads.user", "user")
     .addSelect("user.name")
     .take(perPage)
-    .skip((page - 1) * perPage);
+    .skip(perPageVerification);
 
   if (filterObj.name) {
     query.andWhere("LOWER(ads.name) LIKE :name", {
@@ -77,13 +84,16 @@ export const advertisementGetAllService = async (
     nextPage = null;
   }
 
+  if (pageMax == 1) {
+    nextPage = null;
+  }
+
   const response: TAdvertisementResponsePagination = {
     page: page,
     maxPages: Math.ceil(pageMax),
     previousPage: previousPage,
     nextPage: nextPage,
-
-    ads: [...ads],
+    ads: ads,
   };
 
   return response;
