@@ -34,8 +34,10 @@ export class User {
   @DeleteDateColumn({ type: "date" })
   deletedAt: Date;
 
-  @OneToMany(() => Advertisement, advertisement => advertisement.user)
-    ads: Advertisement[]
+  @OneToMany(() => Advertisement, (advertisement) => advertisement.user, {
+    eager: true,
+  })
+  ads: Advertisement[];
 
   @BeforeInsert()
   @BeforeUpdate()

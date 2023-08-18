@@ -8,6 +8,7 @@ const user = z.object({
   password: z.string(),
   createdAt: z.string().or(z.date()),
   deletedAt: z.string().nullable().or(z.date()),
+  ads: z.any(),
 });
 
 const userRequest = user.omit({
