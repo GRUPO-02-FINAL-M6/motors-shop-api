@@ -80,14 +80,13 @@ export const advertisementGetAllService = async (
     previousPage = null;
   }
 
-  if (pageMax < page) {
-    nextPage = null;
-  }
-
   if (pageMax == 1) {
     nextPage = null;
   }
 
+  if (pageMax <= page) {
+    nextPage = null;
+  }
   const response: TAdvertisementResponsePagination = {
     page: page,
     maxPages: Math.ceil(pageMax),

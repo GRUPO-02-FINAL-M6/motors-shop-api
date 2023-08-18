@@ -6,5 +6,4 @@ export type TUser = z.infer<typeof userSchema.user>;
 export type TUserRequest = z.infer<typeof userSchema.userRequest>;
 export type TUserResponse = z.infer<typeof userSchema.userResponse>;
 export type TUserUpdate = DeepPartial<TUserRequest>;
-
 export type TLogin = z.infer<typeof userSchema.login>;
