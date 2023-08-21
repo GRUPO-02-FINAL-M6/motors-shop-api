@@ -17,7 +17,6 @@ const advertisement = z.object({
   user: userSchema.userResponse,
   price: z.number(),
   priceFip: z.number(),
-  modelCar: z.string(),
 });
 
 const advertisementRequest = advertisement.omit({

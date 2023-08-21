@@ -11,8 +11,8 @@ import {
 import { User } from "./user.entitie";
 
 export enum Fuel {
-  flex = "Gasolina / Etanol",
-  hybrid = "Gasolina / Elétrico",
+  flex = "Flex",
+  hybrid = "Híbrido",
   electric = "Elétrico",
 }
 
@@ -44,9 +44,6 @@ export class Advertisement {
 
   @Column({ type: "varchar" })
   color: string;
-
-  @Column({ type: "varchar" })
-  modelCar: string;
 
   @Column({ type: "float" })
   priceFip: number;
