@@ -48,7 +48,7 @@ async function getMinPrice() {
 async function getDistinctModels() {
     const results = await advertisementRepo
         .createQueryBuilder("ads")
-        .select("DISTINCT ads.modelCar", "models")
+        .select("DISTINCT ads.name", "models")
         .getRawMany();
 
     const distinctModels = results.map(result => result.models);
