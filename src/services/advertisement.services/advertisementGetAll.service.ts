@@ -15,7 +15,7 @@ export const advertisementGetAllService = async (
     .createQueryBuilder("ads")
     .innerJoin("ads.user", "user")
     .addSelect("user.name")
-
+    .addSelect("user.id");
 
   if (filterObj.modelCar && filterObj.modelCar.trim() != "") {
     query.andWhere("LOWER(ads.modelCar) LIKE :name", {
@@ -93,6 +93,7 @@ export const advertisementGetAllService = async (
   if (pageMax <= page) {
     nextPage = null;
   }
+
   const response: TAdvertisementResponsePagination = {
     page: page,
     maxPages: Math.ceil(pageMax),
