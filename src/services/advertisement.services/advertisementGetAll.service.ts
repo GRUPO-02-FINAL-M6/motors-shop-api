@@ -10,12 +10,58 @@ export const advertisementGetAllService = async (
   const advertisementRepo: Repository<Advertisement> =
     repositories.advertisement;
 
-  const advertisementAll = await advertisementRepo.find();
-  const maxItens = advertisementAll.length;
+  let filterString = "";
+  const query = advertisementRepo
+    .createQueryBuilder("ads")
+    .innerJoin("ads.user", "user")
+    .addSelect("user.name")
+
+
+  if (filterObj.modelCar && filterObj.modelCar.trim() != "") {
+    query.andWhere("LOWER(ads.modelCar) LIKE :name", {
+      name: `%${filterObj.modelCar.toLowerCase()}%`,
+    });
+    filterString += "&" + filterObj.modelCar;
+  }
+  if (filterObj.color && filterObj.color.trim() != "") {
+    query.andWhere("LOWER(ads.color) LIKE :color", {
+      color: `%${filterObj.color.toLowerCase()}%`,
+    });
+  }
+  if (filterObj.year !== undefined && filterObj.year.trim() != "") {
+    query.andWhere("ads.year = :year", { year: filterObj.year });
+  }
+  if (filterObj.kmMin !== undefined && filterObj.kmMin.trim() != "") {
+    query.andWhere("ads.km >= :kmMin", { kmMin: filterObj.kmMin });
+  }
+  if (filterObj.kmMax !== undefined && filterObj.kmMax.trim() != "") {
+    query.andWhere("ads.km <= :kmMax", { kmMax: filterObj.kmMax });
+  }
+
+  if (filterObj.valueMin !== undefined && filterObj.valueMin.trim() != "") {
+    query.andWhere("ads.price >= :valueMin", { valueMin: filterObj.valueMin });
+  }
+  if (filterObj.valueMax !== undefined && filterObj.valueMax.trim() != "") {
+    query.andWhere("ads.price <= :valueMax", { valueMax: filterObj.valueMax });
+  }
+
+  if (filterObj.fuel && filterObj.fuel.trim() != "") {
+    query.andWhere("LOWER(ads.fuel) LIKE :fuel", {
+      fuel: `%${filterObj.fuel.toLowerCase()}%`,
+    });
+  }
+  if (filterObj.brand && filterObj.brand.trim() != "") {
+    query.andWhere("LOWER(ads.brand) LIKE :brand", {
+      brand: `%${filterObj.brand.toLowerCase()}%`,
+    });
+  }
+
+  const adsLength = await query.getCount();
   const perPage = 12;
+  const maxItens = adsLength;
   const pageMax = maxItens / perPage;
 
-  if (!page) {
+  if (!page || page < 1) {
     page = 1;
   }
 
@@ -24,50 +70,10 @@ export const advertisementGetAllService = async (
   }
 
   let perPageVerification = (page - 1) * perPage;
-
   if (perPageVerification < 0) {
-    page = 1;
-    perPageVerification = perPage;
+    perPageVerification = 0;
   }
-
-  const query = advertisementRepo
-    .createQueryBuilder("ads")
-    .innerJoin("ads.user", "user")
-    .addSelect("user.name")
-    .take(perPage)
-    .skip(perPageVerification);
-
-  if (filterObj.name) {
-    query.andWhere("LOWER(ads.name) LIKE :name", {
-      name: `%${filterObj.name.toLowerCase()}%`,
-    });
-  }
-  if (filterObj.color) {
-    query.andWhere("LOWER(ads.color) LIKE :color", {
-      color: `%${filterObj.color.toLowerCase()}%`,
-    });
-  }
-  if (filterObj.kmMin !== undefined) {
-    query.andWhere("ads.km >= :kmMin", { kmMin: filterObj.kmMin });
-  }
-  if (filterObj.kmMax !== undefined) {
-    query.andWhere("ads.km <= :kmMax", { kmMax: filterObj.kmMax });
-  }
-
-  if (filterObj.valueMin !== undefined) {
-    query.andWhere("ads.value >= :valueMin", { valueMin: filterObj.valueMin });
-  }
-  if (filterObj.valueMax !== undefined) {
-    query.andWhere("ads.value <= :valueMax", { valueMax: filterObj.valueMax });
-  }
-
-  if (filterObj.brand) {
-    query.andWhere("LOWER(ads.brand) LIKE :brand", {
-      brand: `%${filterObj.brand.toLowerCase()}%`,
-    });
-  }
-
-  const ads = await query.getMany();
+  const ads = await query.take(perPage).skip(perPageVerification).getMany();
 
   let nextPage: string | null = `/advertisement?page=${page + 1}`;
   let previousPage: string | null = `/advertisement?page=${page - 1}`;
