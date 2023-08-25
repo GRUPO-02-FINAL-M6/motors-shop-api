@@ -13,6 +13,7 @@ app.use(cors());
 app.use("/users", routes.user);
 app.use("/filters", routes.filter);
 app.use("/advertisement", routes.advertisement);
+app.use("/recoveryPass", routes.recoveryPass);
 
 app.use(handleError);
 
