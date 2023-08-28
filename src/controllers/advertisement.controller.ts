@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
-
 import advertisementSchema from "../schemas/advertisementSchema";
 import { advertisementServices } from "../services/advertisement.services";
-import { number } from "zod";
 
 const advertisementCreate = async (
   req: Request,
