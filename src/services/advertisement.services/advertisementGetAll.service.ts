@@ -2,6 +2,7 @@ import { Repository } from "typeorm";
 import { Advertisement } from "../../entities/Advertisement.entitie";
 import { TAdvertisementResponsePagination } from "../../interfaces/advertisement.interfaces";
 import repositories from "../../utils/respositorys";
+import { log } from "console";
 
 export const advertisementGetAllService = async (
   filterObj: any,
@@ -57,50 +58,64 @@ export const advertisementGetAllService = async (
     });
   }
 
-  const adsLength = await query.getCount();
-  const perPage = 12;
-  const maxItens = adsLength;
-  const pageMax = maxItens / perPage;
 
-  if (!page || page < 1) {
-    page = 1;
+  try {
+    const adsLength = await query.getCount();
+
+    const perPage = 12;
+    const maxItens = adsLength;
+    const pageMax = maxItens / perPage;
+
+    if (!page || page < 1) {
+      page = 1;
+    }
+
+    if (pageMax < page) {
+      page = Math.ceil(pageMax);
+    }
+
+    let perPageVerification = (page - 1) * perPage;
+    if (perPageVerification < 0) {
+      perPageVerification = 0;
+    }
+    const ads = await query.take(perPage).skip(perPageVerification).getMany();
+
+    let nextPage: string | null = `/advertisement?page=${page + 1}`;
+    let previousPage: string | null = `/advertisement?page=${page - 1}`;
+
+    if (page * maxItens < page) {
+      nextPage = null;
+    }
+
+    if (page <= 1) {
+      previousPage = null;
+    }
+
+    if (pageMax == 1) {
+      nextPage = null;
+    }
+
+    if (pageMax <= page) {
+      nextPage = null;
+    }
+    const response: TAdvertisementResponsePagination = {
+      page: page,
+      maxPages: Math.ceil(pageMax),
+      previousPage: previousPage,
+      nextPage: nextPage,
+      ads: ads,
+    };
+
+    return response;
+  } catch (e: any) {
+    console.log(e);
+    const response: TAdvertisementResponsePagination = {
+      page: 0,
+      maxPages: 0,
+      previousPage: null,
+      nextPage: null,
+      ads: [],
+    };
+    return response;
   }
-
-  if (pageMax < page) {
-    page = Math.ceil(pageMax);
-  }
-
-  let perPageVerification = (page - 1) * perPage;
-  if (perPageVerification < 0) {
-    perPageVerification = 0;
-  }
-  const ads = await query.take(perPage).skip(perPageVerification).getMany();
-
-  let nextPage: string | null = `/advertisement?page=${page + 1}`;
-  let previousPage: string | null = `/advertisement?page=${page - 1}`;
-
-  if (page * maxItens < page) {
-    nextPage = null;
-  }
-
-  if (page == 1) {
-    previousPage = null;
-  }
-
-  if (pageMax == 1) {
-    nextPage = null;
-  }
-
-  if (pageMax <= page) {
-    nextPage = null;
-  }
-  const response: TAdvertisementResponsePagination = {
-    page: page,
-    maxPages: Math.ceil(pageMax),
-    previousPage: previousPage,
-    nextPage: nextPage,
-    ads: ads,
-  };
-
-  return response;
 };

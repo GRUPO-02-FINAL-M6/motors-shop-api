@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import userServices from "../services/user";
 import findUser from "../services/user/findUserProfile.service";
-import { number } from "zod";
+import { number, object } from "zod";
 
 const userLogin = (req: Request, res: Response): Response => {
   const userId = res.locals.userId;
@@ -31,10 +31,7 @@ const userReadById = async (req: Request, res: Response): Promise<Response> => {
   return res.json(userData);
 };
 
-const userReadProfile = async (
-  req: Request,
-  res: Response
-): Promise<Response> => {
+const userReadProfile = async (req: Request,res: Response): Promise<Response> => {
   const userId = res.locals.userId;
 
   const userData = await findUser(userId);
@@ -48,6 +45,12 @@ const userUpdateProfile = async (
 ): Promise<Response> => {
   const userId = res.locals.userId;
   const body = req.body;
+
+
+    delete body["id"];
+    delete body["createdAt"];
+    delete body["deletedAt"];
+
   const newBody = await userServices.patchProfile(userId, body);
 
   return res.status(200).json(newBody);
