@@ -9,6 +9,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { User } from "./user.entitie";
+import { CommentAds } from "./Comment.entity";
 
 export enum Fuel {
   flex = "Flex",
@@ -53,6 +54,9 @@ export class Advertisement {
 
   @ManyToOne(() => User, (user) => user.ads)
   user: User;
+
+  @OneToMany(() => CommentAds, (comment) => comment.advertisement)
+  comments: Comment[];
 
   @CreateDateColumn({ type: "date" })
   createdAt: Date;

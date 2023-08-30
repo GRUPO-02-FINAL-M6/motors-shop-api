@@ -24,6 +24,19 @@ const advertisementRequest = advertisement.omit({
   createdAt: true,
   user: true,
 });
+const CommentAds = z.object({
+  id: z.number(),
+  user: userSchema.userResponse,
+  description: z.string(),
+  createdAt: z.string().or(z.date()),
+  advertismentId: z.number()
+});
+const CommentPatchAds = z.object({
+  id: z.number(),
+  description: z.string(),
+  createdAt: z.string().or(z.date()),
+});
+const CommentsAds = z.array(CommentAds.omit({advertismentId: true}));
 
 const advertisementResponseArray = advertisement.array();
 
@@ -43,6 +56,9 @@ const advertisementSchema = {
   advertisementResponseArray,
   advertisementUpdate,
   advertisementResponsePagination,
+  CommentAds,
+  CommentsAds,
+  CommentPatchAds
 };
 
 export default advertisementSchema;
