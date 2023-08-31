@@ -17,12 +17,14 @@ const advertisement = z.object({
   user: userSchema.userResponse,
   price: z.number(),
   priceFip: z.number(),
+  active: z.boolean()
 });
 
 const advertisementRequest = advertisement.omit({
   id: true,
   createdAt: true,
   user: true,
+  active: true
 });
 const CommentAds = z.object({
   id: z.number(),

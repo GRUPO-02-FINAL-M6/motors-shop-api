@@ -49,6 +49,9 @@ export class Advertisement {
   @Column({ type: "float" })
   priceFip: number;
 
+  @Column({ type: "boolean", default: true })
+  active: boolean;
+
   @Column({ type: "varchar", array: true })
   images: string[];
 
