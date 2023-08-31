@@ -8,6 +8,7 @@ const user = z.object({
   description: z.string(),
   password: z.string(),
   createdAt: z.string().or(z.date()),
+  is_seller: z.boolean(),
   deletedAt: z.string().nullable().or(z.date()),
   ads: z.any(),
 });
