@@ -16,16 +16,15 @@ user.post(
 );
 user.post("/login", verifyCredentials, controllers.users.userLogin);
 
-user.use(verifyToken);
 
 user.get("/all", controllers.users.userReadAll);
-user.get("/profile", controllers.users.userReadProfile);
 user.get(
   "/:id",
   userMiddlewares.verifyUserExist,
   controllers.users.userReadById
 );
-
+user.use(verifyToken);
+user.get("/profile", controllers.users.userReadProfile);
 user.patch("", controllers.users.userUpdateProfile);
 user.delete("", controllers.users.userDelete);
 

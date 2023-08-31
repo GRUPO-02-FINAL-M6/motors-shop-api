@@ -48,7 +48,7 @@ export const sendEmailRecovery = async (email: string,token:string) => {
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                             Não podemos simplesmente enviar-lhe a sua senha antiga. Um link exclusivo para redefinir sua senha foi gerado para você. Para redefinir sua senha, clique no link a seguir e siga as instruções.
                                         </p>
-                                        <a href="http://localhost:5173/reoveryPassword?token=${token}"
+                                        <a href="http://localhost:5173/ConfirmationPassword?token=${token}"
                                             style="background:#20a1e2;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Redefinir senha</a>
                                     </td>
                                 </tr>

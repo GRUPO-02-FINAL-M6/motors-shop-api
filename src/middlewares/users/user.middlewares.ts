@@ -11,7 +11,6 @@ const verifyEmailExist = async (
   const user = await repositories.user.findOneBy({ email: email });
 
   if (user) {
-    console.log(user);
     throw new AppError("email already exists", 409);
   }
   next();

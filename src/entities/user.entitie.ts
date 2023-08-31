@@ -10,6 +10,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Advertisement } from "./Advertisement.entitie";
+import { CommentAds } from "./Comment.entity";
 
 @Entity("users")
 export class User {
@@ -25,12 +26,18 @@ export class User {
   @Column({ type: "varchar", length: 120 })
   contact: string;
 
-  @Column({ type: "varchar", length: 380 })
+  @Column({ type: "varchar", length: 380, default: "" })
   description: string;
 
   @Column({ type: "varchar", length: 120 })
   password: string;
 
+  @OneToMany(() => CommentAds, (comment) => comment.user)
+  comments: Comment[];
+
+  @Column({ type: "boolean", default: false })
+  is_seller: boolean;
+  
   @CreateDateColumn({ type: "date" })
   createdAt: Date;
 

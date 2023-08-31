@@ -9,6 +9,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { User } from "./user.entitie";
+import { CommentAds } from "./Comment.entity";
 
 export enum Fuel {
   flex = "Flex",
@@ -48,11 +49,17 @@ export class Advertisement {
   @Column({ type: "float" })
   priceFip: number;
 
+  @Column({ type: "boolean", default: true })
+  active: boolean;
+
   @Column({ type: "varchar", array: true })
   images: string[];
 
   @ManyToOne(() => User, (user) => user.ads)
   user: User;
+
+  @OneToMany(() => CommentAds, (comment) => comment.advertisement)
+  comments: Comment[];
 
   @CreateDateColumn({ type: "date" })
   createdAt: Date;
