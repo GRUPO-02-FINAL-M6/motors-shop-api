@@ -25,7 +25,6 @@ const userReadAll = async (req: Request, res: Response): Promise<Response> => {
 };
 const userReadById = async (req: Request, res: Response): Promise<Response> => {
   const userId = Number(req.params.id);
-
   const userData = await findUser(userId);
 
   return res.json(userData);
@@ -33,8 +32,7 @@ const userReadById = async (req: Request, res: Response): Promise<Response> => {
 
 const userReadProfile = async (req: Request,res: Response): Promise<Response> => {
   const userId = res.locals.userId;
-
-  const userData = await findUser(userId);
+  const userData = await findUser(Number(userId));
 
   return res.json(userData);
 };

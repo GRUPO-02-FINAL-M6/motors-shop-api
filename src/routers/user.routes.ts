@@ -18,11 +18,7 @@ user.post("/login", verifyCredentials, controllers.users.userLogin);
 
 
 user.get("/all", controllers.users.userReadAll);
-user.get(
-  "/:id",
-  userMiddlewares.verifyUserExist,
-  controllers.users.userReadById
-);
+user.get("/profile/:id",userMiddlewares.verifyUserExist,controllers.users.userReadById);
 user.use(verifyToken);
 user.get("/profile", controllers.users.userReadProfile);
 user.patch("", controllers.users.userUpdateProfile);
