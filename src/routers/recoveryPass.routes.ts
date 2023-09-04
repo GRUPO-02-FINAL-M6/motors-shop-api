@@ -4,7 +4,8 @@ import userMiddlewares from "../middlewares/users/user.middlewares";
 
 const recoveryPass = Router();
 
-recoveryPass.post("",controllers.changePass);
+recoveryPass.post("",controllers.sendChangePass);
+recoveryPass.patch("",controllers.changePass);
 
 
 export default recoveryPass;

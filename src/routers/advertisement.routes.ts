@@ -4,7 +4,6 @@ import verifyToken from "../middlewares/verifyToken.middlewars";
 import verifyIsOwnerAdvertisement from "../middlewares/verifyIsOwnerAdvertisement.middlewares";
 
 const advertisement = Router();
-
 advertisement.get("", controllers.ads.advertisementReadAll);
 advertisement.get("/:adsId", controllers.ads.advertisementRead);
 //Start Comments
