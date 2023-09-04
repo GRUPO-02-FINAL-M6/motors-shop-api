@@ -32,5 +32,5 @@ export const CommentCreateService = async (comment: string, userId: number, post
     
     const saveComment = await commentRepo.save(createComment);
     
-    return advertisementSchema.CommentAds.parse({...saveComment,advertismentId: saveComment.id});
+    return advertisementSchema.CommentAds.parse({...saveComment,advertismentId: saveComment.advertisement.id});
 }

@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { getFilters } from "../services/filters.services/getAllFilters.service";
 import repositories from "../utils/respositorys";
-import { sendEmail } from "../services/nodemailler/nodemailer";
 import { sendEmailRecovery } from "../services/recovery.services/recoverySendEmail.service";
-import { sign } from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
+import { AppError } from "../errors";
+import patchProfile from "../services/user/patchProfile.service";
 
-export const changePass = async (req: Request, res: Response): Promise<Response> => {
+export const sendChangePass = async (req: Request, res: Response): Promise<Response> => {
     const { email } = req.body;
     const user = await repositories.user.findOneBy({ email: email });
 
@@ -15,7 +15,7 @@ export const changePass = async (req: Request, res: Response): Promise<Response>
             subject: String(user.id),
         });
 
-        const send = sendEmailRecovery(email,token);
+        const send = sendEmailRecovery(email, token);
 
         return res.status(200).send();
     } else {
@@ -23,4 +23,23 @@ export const changePass = async (req: Request, res: Response): Promise<Response>
     }
 };
 
+export const changePass = async (req: Request, res: Response) => {
+    const authorization: string | null | undefined = req.headers.authorization;
+
+    if (!authorization)
+        return res.status(401).json({ message: "Missing bearer token" });
+
+    const [_bearer, token] = authorization.split(" ");
+
+    verify(token, String(process.env.SECRET_KEY), (err: any, decode: any) => {
+        if (err) throw new AppError("invalid token", 401);
+        const userId: string = decode.sub;
+        res.locals.userId = userId;
+    });
+
+    await patchProfile(res.locals.userId, { password: req.body.password });
+
+
+    return res.status(204).send();
+}
 
