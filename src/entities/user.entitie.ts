@@ -6,11 +6,14 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Advertisement } from "./Advertisement.entitie";
 import { CommentAds } from "./Comment.entity";
+import { Address } from "./Address.entity";
 
 @Entity("users")
 export class User {
@@ -43,6 +46,9 @@ export class User {
 
   @DeleteDateColumn({ type: "date" })
   deletedAt: Date;
+
+  @OneToOne(() => Address, (address) => address.user)
+  address: Address;  
 
   @OneToMany(() => Advertisement, (advertisement) => advertisement.user, {
     eager: true,

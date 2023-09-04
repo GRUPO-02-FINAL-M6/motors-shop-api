@@ -22,8 +22,7 @@ const commentReadAll = async (req: Request, res: Response): Promise<Response> =>
 
 const commentUpdate = async (req: Request, res: Response): Promise<Response> => {
   const comment = await CommentPatchService(Number(req.params.id), Number(res.locals.userId), req.body.description);
-  console.log(comment);
-  
+
   return res.status(200).json(comment);
 };
 

@@ -14,7 +14,7 @@ const advertisement = z.object({
   images: z.array(z.string()),
   fuel: z.enum([Fuel.electric, Fuel.flex, Fuel.hybrid]),
   createdAt: z.date().or(z.string()),
-  user: userSchema.userResponse,
+  user: userSchema.userResponse.omit({address:true}),
   price: z.number(),
   priceFip: z.number(),
   active: z.boolean()

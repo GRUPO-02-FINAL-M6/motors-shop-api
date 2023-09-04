@@ -8,25 +8,6 @@ import userMiddlewares from "../middlewares/users/user.middlewares";
 
 const user = Router();
 
-
-
-/**
- * @swagger
- * components:
- *  schemas:
- *    User:
- *      type: object
- *      required:
- *       - name
- *       - email
- *       - contact
- *      properties:
- *        id:
- *           type: string
- *            description: the auto-genereted id of the user
- *  
- */
-
 user.post(
   "",
   validateSchema(userSchema.userRequest),

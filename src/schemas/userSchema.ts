@@ -1,4 +1,5 @@
 import { z } from "zod";
+import addressSchema from "./addressSchema";
 
 const user = z.object({
   id: z.number(),
@@ -11,13 +12,14 @@ const user = z.object({
   is_seller: z.boolean(),
   deletedAt: z.string().nullable().or(z.date()),
   ads: z.any(),
+  address: addressSchema.address.or(addressSchema.addressRequest)
 });
 
 const userRequest = user.omit({
   id: true,
   createdAt: true,
   deletedAt: true,
-});
+}).extend({address: addressSchema.addressRequest});
 
 const userResponse = user.omit({
   password: true,
