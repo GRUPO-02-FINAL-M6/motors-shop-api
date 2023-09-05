@@ -3,8 +3,15 @@ import userSchema from "../../schemas/userSchema";
 import repositories from "../../utils/respositorys";
 
 const findUser = async (userId: number) => {
-  const user: User | null = await repositories.user.createQueryBuilder("user").innerJoinAndSelect("user.address", "address").where("user.id = :userId", { userId }).getOne();
-  
+  // const user: User | null = await repositories.user.findOneBy({ id: userId });
+
+  const user: User | null = await repositories.user
+    .createQueryBuilder("user")
+    .innerJoinAndSelect("user.address", "address")
+    .innerJoinAndSelect("user.ads", "ads")
+    .where("user.id = :userId", { userId })
+    .getOne();
+
   return userSchema.userResponse.parse(user);
 };
 
