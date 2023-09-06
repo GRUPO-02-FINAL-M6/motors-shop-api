@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const controllers_1 = __importDefault(require("../controllers"));
+const verifyCredentials_middlewares_1 = __importDefault(require("../middlewares/verifyCredentials.middlewares"));
+const verifyToken_middlewars_1 = __importDefault(require("../middlewares/verifyToken.middlewars"));
+const validateSchema_middlewares_1 = __importDefault(require("../middlewares/validateSchema.middlewares"));
+const userSchema_1 = __importDefault(require("../schemas/userSchema"));
+const user_middlewares_1 = __importDefault(require("../middlewares/users/user.middlewares"));
+const user = (0, express_1.Router)();
+user.post("", (0, validateSchema_middlewares_1.default)(userSchema_1.default.userRequest), user_middlewares_1.default.verifyEmailExist, controllers_1.default.users.userCreate);
+user.post("/login", verifyCredentials_middlewares_1.default, controllers_1.default.users.userLogin);
+user.get("/all", controllers_1.default.users.userReadAll);
+user.get("/profile/:id", user_middlewares_1.default.verifyUserExist, controllers_1.default.users.userReadById);
+user.use(verifyToken_middlewars_1.default);
+user.get("/profile", controllers_1.default.users.userReadProfile);
+user.patch("", controllers_1.default.users.userUpdateProfile);
+user.delete("", controllers_1.default.users.userDelete);
+exports.default = user;
