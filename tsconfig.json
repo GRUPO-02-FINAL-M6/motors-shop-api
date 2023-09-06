@@ -12,6 +12,7 @@
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
     "resolveJsonModule": true,
+    "outDir": "./dist"
   },
   "include": ["src", "swagger.js"],
   "exclude": ["node_modules"]
