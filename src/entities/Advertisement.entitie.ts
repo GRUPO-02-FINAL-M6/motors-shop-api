@@ -3,18 +3,19 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { User } from "./user.entitie";
+import { CommentAds } from "./Comment.entity";
 
 export enum Fuel {
-  flex = "Gasolina / Etanol", 
-  hybrid = "Gasolina / Elétrico",
-  electric = "Elétrico"
+  flex = "Flex",
+  hybrid = "Híbrido",
+  electric = "Elétrico",
 }
-
 
 @Entity("ads")
 export class Advertisement {
@@ -33,20 +34,32 @@ export class Advertisement {
   @Column({ type: "integer" })
   year: number;
 
-  @Column({ type: "varchar" })
+  @Column({ type: "integer" })
   km: number;
 
   @Column({ type: "varchar" })
   fuel: Fuel;
 
+  @Column({ type: "float" })
+  price: number;
+
   @Column({ type: "varchar" })
-  value: number;
+  color: string;
 
-  @Column({type: "varchar", array:true})
-  images: string[]
+  @Column({ type: "float" })
+  priceFip: number;
 
-  @ManyToOne(() => User, user => user.ads)
+  @Column({ type: "boolean", default: true })
+  active: boolean;
+
+  @Column({ type: "varchar", array: true })
+  images: string[];
+
+  @ManyToOne(() => User, (user) => user.ads)
   user: User;
+
+  @OneToMany(() => CommentAds, (comment) => comment.advertisement)
+  comments: Comment[];
 
   @CreateDateColumn({ type: "date" })
   createdAt: Date;

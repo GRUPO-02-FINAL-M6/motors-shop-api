@@ -6,10 +6,14 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Advertisement } from "./Advertisement.entitie";
+import { CommentAds } from "./Comment.entity";
+import { Address } from "./Address.entity";
 
 @Entity("users")
 export class User {
@@ -25,8 +29,17 @@ export class User {
   @Column({ type: "varchar", length: 120 })
   contact: string;
 
+  @Column({ type: "varchar", length: 380, default: "" })
+  description: string;
+
   @Column({ type: "varchar", length: 120 })
   password: string;
+
+  @OneToMany(() => CommentAds, (comment) => comment.user)
+  comments: Comment[];
+
+  @Column({ type: "boolean", default: false })
+  is_seller: boolean;
 
   @CreateDateColumn({ type: "date" })
   createdAt: Date;
@@ -34,8 +47,13 @@ export class User {
   @DeleteDateColumn({ type: "date" })
   deletedAt: Date;
 
-  @OneToMany(() => Advertisement, advertisement => advertisement.user)
-    ads: Advertisement[]
+  @OneToOne(() => Address, (address) => address.user, { eager: true })
+  address: Address;
+
+  @OneToMany(() => Advertisement, (advertisement) => advertisement.user, {
+    eager: true,
+  })
+  ads: Advertisement[];
 
   @BeforeInsert()
   @BeforeUpdate()

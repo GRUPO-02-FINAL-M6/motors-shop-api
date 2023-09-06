@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-
 import advertisementSchema from "../schemas/advertisementSchema";
 import { advertisementServices } from "../services/advertisement.services";
 
@@ -21,7 +20,11 @@ const advertisementReadAll = async (
   res: Response
 ): Promise<Response> => {
   const filterObj = req.query;
-  const ads = await advertisementServices.advertisementGetAllService(filterObj);
+  const page = Number(req.query?.page);
+  const ads = await advertisementServices.advertisementGetAllService(
+    filterObj,
+    page
+  );
   return res.status(200).json(ads);
 };
 

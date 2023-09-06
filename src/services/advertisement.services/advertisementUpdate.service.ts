@@ -23,7 +23,7 @@ export const advertisementUpdateService = async (advertisementData: TAdvertiseme
     await advertisementRepo.save(newData);
 
     newData.km = Number(newData.km);
-    newData.value = Number(newData.value);
+    newData.price = Number(newData.price);
 
     return advertisementSchema.advertisement.parse({ ...newData, user: { ...user } });
 }

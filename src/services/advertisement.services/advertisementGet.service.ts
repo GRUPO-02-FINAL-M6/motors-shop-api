@@ -18,7 +18,7 @@ export const advertisementGetService = async (adsId: number): Promise<TAdvertise
         .innerJoin('ads.user', 'user')
         .addSelect('user.name')
         .addSelect('user.id')
-        .where('ads.id = :userId', { userId: adsId })
+        .where('ads.id = :adsId', { adsId: adsId })
         .getOne();
 
     if (!ads) {

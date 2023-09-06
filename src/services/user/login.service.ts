@@ -5,6 +5,7 @@ interface TTokenObject {
 }
 
 const login = (userId: string): TTokenObject => {
+  
   const token = sign({}, String(process.env.SECRET_KEY), {
     expiresIn: "24h",
     subject: String(userId),

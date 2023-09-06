@@ -18,6 +18,8 @@ const verifyIsOwnerAdvertisement = async (
 
     const advertisement = await advertisementServices.advertisementGetService(Number(req.params.id));
 
+console.log(user);
+console.log(advertisement.user);
 
     if (advertisement.user.id == user.id) {
 
