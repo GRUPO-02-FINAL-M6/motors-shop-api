@@ -40,15 +40,15 @@ export class User {
 
   @Column({ type: "boolean", default: false })
   is_seller: boolean;
-  
+
   @CreateDateColumn({ type: "date" })
   createdAt: Date;
 
   @DeleteDateColumn({ type: "date" })
   deletedAt: Date;
 
-  @OneToOne(() => Address, (address) => address.user)
-  address: Address;  
+  @OneToOne(() => Address, (address) => address.user, { eager: true })
+  address: Address;
 
   @OneToMany(() => Advertisement, (advertisement) => advertisement.user, {
     eager: true,
