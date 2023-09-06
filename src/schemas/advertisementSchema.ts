@@ -28,7 +28,7 @@ const advertisementRequest = advertisement.omit({
 });
 const CommentAds = z.object({
   id: z.number(),
-  user: userSchema.userResponse,
+  user: userSchema.userResponse.omit({address: true}),
   description: z.string(),
   createdAt: z.string().or(z.date()),
   advertismentId: z.number()
